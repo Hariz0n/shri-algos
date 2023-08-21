@@ -1,4 +1,6 @@
 export const Bubblesort = (arr: number[]) => {
+  if (arr.length < 2) return;
+
   for (let i = 0; i < arr.length - 1; i++) {
     if (arr[i] > arr[i + 1]) {
       const temp = arr[i];
