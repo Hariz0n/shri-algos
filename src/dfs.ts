@@ -3,13 +3,13 @@ type Node<T> = {
   children?: Node<T>[];
 };
 
-type callback<T> = (value: T) => boolean;
+type callback<T> = (node: Node<T>) => boolean;
 
 export const dfs = <T>(node: Node<T>, callback: callback<T>): T[] => {
   const stack = [node];
   while (stack.length) {
     const currentNode = stack[stack.length - 1];
-    if (callback(currentNode.value)) {
+    if (callback(currentNode)) {
       return stack.reduce((previousValue: T[], currentValue) => {
         previousValue.push(currentValue.value);
         return previousValue;
@@ -44,4 +44,4 @@ const tree: Node<number> = {
   ],
 };
 
-console.log(dfs(tree, (value) => value === 4));
+console.log(dfs(tree, (node) => node.value === 4));
