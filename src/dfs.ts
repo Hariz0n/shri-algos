@@ -3,24 +3,17 @@ type Node<T> = {
   children?: Node<T>[];
 };
 
-type callback<T> = (node: Node<T>) => boolean;
+type callback<T> = (node: Node<T>) => void;
 
 export const dfs = <T>(node: Node<T>, callback: callback<T>): T[] => {
   const stack = [node];
-  while (stack.length) {
-    const currentNode = stack[stack.length - 1];
-    if (callback(currentNode)) {
-      return stack.reduce((previousValue: T[], currentValue) => {
-        previousValue.push(currentValue.value);
-        return previousValue;
-      }, []);
-    }
+  while (stack.length > 0) {
+    const currentNode = stack.pop()!;
+    callback(currentNode);
     if (currentNode.children) {
-      for (let i = 0; i < currentNode.children.length; i++) {
+      for (let i = currentNode.children.length - 1; i >= 0; i--) {
         stack.push(currentNode.children[i]);
       }
-    } else {
-      stack.pop();
     }
   }
 
@@ -41,7 +34,12 @@ const tree: Node<number> = {
         },
       ],
     },
+    {
+      value: 10,
+    },
   ],
 };
 
-console.log(dfs(tree, (node) => node.value === 4));
+dfs(tree, (node) => {
+  console.log(node.value);
+});
