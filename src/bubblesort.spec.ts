@@ -8,9 +8,14 @@ describe("bubblesort", () => {
     Bubblesort(x);
     expect(x).to.deep.eq([1, 2, 3, 4, 5, 7, 8]);
   });
-  it("test 1", () => {
+  it("test 2", () => {
     const x = [1];
     Bubblesort(x);
     expect(x).to.deep.eq([1]);
+  });
+  it("test 3", () => {
+    const x: number[] = [];
+    Bubblesort(x);
+    expect(x).to.deep.eq([]);
   });
 });
